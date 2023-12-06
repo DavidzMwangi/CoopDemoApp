@@ -112,40 +112,43 @@ private fun EmailSignIn(
     val modifier = Modifier
 //        .fillMaxSize()
         .verticalScroll(rememberScrollState())
+    Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
+        Column(modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
 
-    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-
-        Image(painter = painterResource(id = R.drawable.logo),
-            contentDescription ="Background Image",
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(16.dp)
-        )
-        InputField(valueState = username, enabled = !loading,labelId=R.string.username, onAction = KeyboardActions {
-            passwordFocusRequester.requestFocus()
-        })
-        PasswordInput(
-            modifier = Modifier.focusRequester(passwordFocusRequester),
-            passwordState = password,
-            enabled = !loading,
-            passwordVisibility = passwordVisibility,
-            onAction = KeyboardActions {
-                //The submit button is disabled unless the inputs are valid. wrap this in if statement to accomplish the same.
-                if (!valid) return@KeyboardActions
+            Image(painter = painterResource(id = R.drawable.logo),
+                contentDescription ="Background Image",
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(16.dp)
+            )
+            InputField(valueState = username, enabled = !loading,labelId=R.string.username, onAction = KeyboardActions {
+                passwordFocusRequester.requestFocus()
+            })
+            PasswordInput(
+                modifier = Modifier.focusRequester(passwordFocusRequester),
+                passwordState = password,
+                enabled = !loading,
+                passwordVisibility = passwordVisibility,
+                onAction = KeyboardActions {
+                    //The submit button is disabled unless the inputs are valid. wrap this in if statement to accomplish the same.
+                    if (!valid) return@KeyboardActions
+                    onDone(username.value.trim(), password.value.trim())
+                    keyboardController?.hide()
+                }
+            )
+            SubmitButton(
+                textId = R.string.sign_in,
+                loading = loading,
+                validInputs = valid
+            ) {
                 onDone(username.value.trim(), password.value.trim())
                 keyboardController?.hide()
             }
-        )
-        SubmitButton(
-            textId = R.string.sign_in,
-            loading = loading,
-            validInputs = valid
-        ) {
-            onDone(username.value.trim(), password.value.trim())
-            keyboardController?.hide()
+
         }
 
     }
+
 
 }
 
