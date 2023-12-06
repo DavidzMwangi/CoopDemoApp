@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import com.wanjohi.david.demoapp.ui.main.login.LoginScreen
 import com.wanjohi.david.demoapp.ui.theme.DemoAppTheme
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                   
-                    Text(text = "erferferferfer")
+                    LoginScreen()
                    
                 }
             }

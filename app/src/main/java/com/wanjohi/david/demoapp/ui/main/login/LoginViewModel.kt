@@ -2,6 +2,8 @@ package com.wanjohi.david.demoapp.ui.main.login
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wanjohi.david.demoapp.repository.AuthRepository
@@ -11,34 +13,39 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val authRepository: AuthRepository):ViewModel() {
-    private var _uploadState = mutableStateOf(LoginState())
-    var uploadState: State<LoginState> = _uploadState
+    private var _loginState = mutableStateOf(LoginState())
+    var loginState: State<LoginState> = _loginState
+    private val _page = MutableLiveData(Page.LOGIN)
+    val page: LiveData<Page> = _page
 
-
+    val changePage: (Page) -> Unit = {
+        _page.value = it
+    }
     fun attemptLogin(username:String, password:String) {
         viewModelScope.launch {
             authRepository.attemptLogin(username, password).collectLatest {
                 when(it.status){
                     Status.EMPTY->{
-                        _uploadState.value = uploadState.value.copy(
+                        _loginState.value = loginState.value.copy(
                             isLoading = false
                         )
                     }
                     Status.FAILED->{
-                        _uploadState.value = uploadState.value.copy(
+                        _loginState.value = loginState.value.copy(
 //                            error= it.data?.error,
                             isLoading = false
                         )
                     }
                     Status.LOADING->{
-                        _uploadState.value = uploadState.value.copy(
+                        _loginState.value = loginState.value.copy(
                             isLoading = true
                         )
                     }
                     Status.SUCCESS->{
-                        _uploadState.value = uploadState.value.copy(
+                        _loginState.value = loginState.value.copy(
                             isLoading = false,
-                            data  = it.data
+                            data  = it.data,
+                            success = true
                         )
                     }
                 }
@@ -47,3 +54,4 @@ class LoginViewModel(private val authRepository: AuthRepository):ViewModel() {
 
     }
 }
+enum class Page { LOGIN, WELCOME }

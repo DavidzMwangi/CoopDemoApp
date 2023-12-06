@@ -213,6 +213,8 @@ fun SubmitButton(
             .fillMaxWidth(),
         enabled = !loading && validInputs,
         onClick = onClick,
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
+
     ) {
         if (loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
         else Text(text = stringResource(id = textId), modifier = Modifier.padding(5.dp))
