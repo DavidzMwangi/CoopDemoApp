@@ -1,13 +1,15 @@
-package com.wanjohi.david.kotlinmvvmjetpacktemplate.ui.utils
+package com.wanjohi.david.demoapp.ui.ui
 
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Patterns
+import androidx.annotation.RequiresApi
 import com.google.android.gms.tasks.Task
-import com.wanjohi.david.kotlinmvvmjetpacktemplate.R
+import com.wanjohi.david.demoapp.R
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resumeWithException
@@ -58,6 +60,7 @@ fun Context.validEmailOrThrow(email: String) {
 //}
 //endregion
 
+@RequiresApi(Build.VERSION_CODES.M)
 private fun ConnectivityManager.isConnected(): Boolean {
     val capabilities = getNetworkCapabilities(activeNetwork) ?: return false
     val wifiConnected = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
@@ -66,10 +69,12 @@ private fun ConnectivityManager.isConnected(): Boolean {
     return wifiConnected || mobileDataActive || ethernetConnected
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 fun Context.isConnected(): Boolean {
     return (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected()
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 fun Context.connectedOrThrow() {
     if (!isConnected()) throw Exception(getString(R.string.you_are_offline))
 }

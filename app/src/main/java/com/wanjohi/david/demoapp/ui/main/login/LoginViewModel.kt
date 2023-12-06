@@ -4,20 +4,20 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wanjohi.david.demoapp.repository.TraceRepository
-import com.wanjohi.david.demoapp.ui.main.login.states.UploadState
+import com.wanjohi.david.demoapp.repository.AuthRepository
+import com.wanjohi.david.demoapp.ui.main.login.states.LoginState
 import com.wanjohi.david.demoapp.utils.network.vo.Status
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class UploadViewModel(private val traceRepository: TraceRepository):ViewModel() {
-    private var _uploadState = mutableStateOf(UploadState())
-    var uploadState: State<UploadState> = _uploadState
+class LoginViewModel(private val authRepository: AuthRepository):ViewModel() {
+    private var _uploadState = mutableStateOf(LoginState())
+    var uploadState: State<LoginState> = _uploadState
 
 
     fun attemptLogin(username:String, password:String) {
         viewModelScope.launch {
-            traceRepository.attemptLogin(username, password).collectLatest {
+            authRepository.attemptLogin(username, password).collectLatest {
                 when(it.status){
                     Status.EMPTY->{
                         _uploadState.value = uploadState.value.copy(
@@ -26,7 +26,7 @@ class UploadViewModel(private val traceRepository: TraceRepository):ViewModel() 
                     }
                     Status.FAILED->{
                         _uploadState.value = uploadState.value.copy(
-                            error= it.data?.error,
+//                            error= it.data?.error,
                             isLoading = false
                         )
                     }
@@ -38,7 +38,7 @@ class UploadViewModel(private val traceRepository: TraceRepository):ViewModel() 
                     Status.SUCCESS->{
                         _uploadState.value = uploadState.value.copy(
                             isLoading = false,
-                            data  = it.data?.result!!
+                            data  = it.data
                         )
                     }
                 }

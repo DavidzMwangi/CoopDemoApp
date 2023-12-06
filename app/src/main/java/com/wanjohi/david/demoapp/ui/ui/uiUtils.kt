@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.wanjohi.david.kotlinmvvmjetpacktemplate.ui.utils
+package com.wanjohi.david.demoapp.ui.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.material.button.MaterialButton
 import com.siddroid.holi.colors.MaterialColor
-import com.wanjohi.david.kotlinmvvmjetpacktemplate.R
+import com.wanjohi.david.demoapp.R
 
 @Composable
 fun AuthBaseLayout(

@@ -9,12 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.rememberNavHostEngine
-import com.wanjohi.david.demoapp.ui.main.NavGraphs
-import com.wanjohi.david.demoapp.ui.main.common.StandardScaffold
 import com.wanjohi.david.demoapp.ui.theme.DemoAppTheme
 
 class MainActivity : AppCompatActivity() {
@@ -28,21 +24,9 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    val navHostEngine = rememberNavHostEngine()
-
-                    StandardScaffold(
-                        navController = navController
-                    ) {
-                        Box(modifier = Modifier.padding(it)){
-                            DestinationsNavHost(
-                                navGraph = NavGraphs.root,
-                                navController= navController,
-                                engine = navHostEngine
-                            )
-
-                        }
-                    }
+                  
+                    Text(text = "erferferferfer")
+                   
                 }
             }
         }
