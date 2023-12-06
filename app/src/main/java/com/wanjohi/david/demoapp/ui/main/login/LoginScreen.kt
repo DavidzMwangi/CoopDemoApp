@@ -72,7 +72,7 @@ fun LoginScreen(){
                 Crossfade(targetState =page, label = "") {
                     when(page){
                         Page.LOGIN->{
-                            EmailSignIn { email: String, password: String ->
+                            EmailSignIn(loading = loginState.value.isLoading) { email: String, password: String ->
                                 loginViewModel.attemptLogin(email,password)
                             }
                         }
@@ -85,6 +85,9 @@ fun LoginScreen(){
                 if (loginState.value.success) {
                     //load the next screen for showing the user
                     loginViewModel.changePage(Page.WELCOME)
+                }
+                if (loginState.value.error!=null){
+                    Toast.makeText(context, loginState.value.error, Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -110,7 +113,6 @@ private fun EmailSignIn(
         username.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
     }
     val modifier = Modifier
-//        .fillMaxSize()
         .verticalScroll(rememberScrollState())
     Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
         Column(modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {

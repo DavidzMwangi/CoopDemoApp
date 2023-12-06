@@ -32,7 +32,7 @@ class LoginViewModel(private val authRepository: AuthRepository):ViewModel() {
                     }
                     Status.FAILED->{
                         _loginState.value = loginState.value.copy(
-//                            error= it.data?.error,
+                            error= "Invalid Credentials",
                             isLoading = false
                         )
                     }
